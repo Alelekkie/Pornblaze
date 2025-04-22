@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PornBlaze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-family: 'Lobster', cursive;
+    }
+
+    .logo span.porn {
+      color: #fff;
+    }
+
+    .logo span.blaze {
+      background-color: #ff69b4;
+      color: #000;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-left: 5px;
+    }
+
+    .search-bar input {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+    }
+
+    .search-bar input::placeholder {
+      color: #aaa;
+    }
+
+    .menu-toggle {
+      display: block;
+      cursor: pointer;
+      font-size: 24px;
+      color: #ff69b4;
+    }
+
+    .user-panel {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 50%;
+      height: 100vh;
+      background-color: #1a1a1a;
+      color: white;
+      transition: right 0.5s ease;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .user-panel.active {
+      right: 0;
+    }
+
+    .user-panel a {
+      color: #ff69b4;
+      margin: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .user-panel .close-panel {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #ff69b4;
+      cursor: pointer;
+    }
+
+    .user-panel .logo {
+      margin-top: 40px;
+    }
+
+    nav {
+      background-color: #2a2a2a;
+      display: flex;
+      justify-content: center;
+      padding: 6px;
+      font-size: 20px;
+      gap: 150px;
+    }
+
+    nav a {
+      color: #ff69b4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 60%;
+      margin: 0 auto;
+    }
+
+    .film-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .film-card {
+      background-color: #1a1a1a;
+      padding: 10px;
+      border-radius: 0;
+      text-align: center;
+      width: 220px;
+    }
+
+    .film-card video {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+
+    .film-card p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .pagination {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .pagination a {
+      color: #ff69b4;
+      margin: 0 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #1a1a1a;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      color: #ccc;
+      font-size: 7px;
+    }
+
+    .footer-links, .footer-info {
+      margin-bottom: 20px;
+    }
+
+    .footer-links a, .footer-info a {
+      display: block;
+      color: #ff69b4;
+      text-decoration: none;
+      margin: 5px 0;
+    }
+
+    .footer-social p {
+      margin-bottom: 10px;
+    }
+
+    .footer-social a {
+      color: #ff69b4;
+      margin-right: 10px;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 1024px) {
+      .film-grid {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .film-grid {
+        justify-content: center;
+      }
+
+      .film-card {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .user-panel {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="porn">Porn</span><span class="blaze">Blaze</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Przeszukaj PornBlaze..." id="searchInput">
+    </div>
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Strona główna</a>
+    <a href="kategorie.html">Kategorie</a>
+    <a href="gwiazdy.html">Gwiazdy porno</a>
+    <a href="konto-premium.html">Konto Premium</a>
+    <a href="panel-admina.html" style="display:none">Panel admina</a>
+  </nav>
+
+  <main>
+    <div class="film-grid" id="filmGrid"></div>
+  </main>
+
+  <div class="pagination">
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">Następna</a>
+  </div>
+
+  <div class="user-panel" id="userPanel">
+    <div class="close-panel" id="closePanel">&times;</div>
+    <a href="rejestracja.html">Załóż konto</a>
+    <a href="logowanie.html">Zaloguj</a>
+    <div class="logo">
+      <span class="porn">Porn</span><span class="blaze">Blaze</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Strona główna</a>
+      <a href="kategorie.html">Kategorie</a>
+      <a href="gwiazdy.html">Gwiazdy porno</a>
+      <a href="panel-admina.html">Panel admina</a>
+    </div>
+    <div class="footer-info">
+      <a href="regulamin.html">Regulamin</a>
+      <a href="praca.html">Pracuj z nami</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="footer-social">
+      <p>Social Media</p>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-pornhub"></i></a>
+    </div>
+    <div style="width: 100%; text-align: center; font-size: 8px; margin-top: 10px; color: #888;">
+      2025 PornBlaze. Wszystkie prawa zastrzeżone.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const searchValue = this.value.toLowerCase();
+      const filmCards = document.querySelectorAll('.film-card');
+      filmCards.forEach(card => {
+        const title = card.querySelector('p').textContent.toLowerCase();
+        card.style.display = title.includes(searchValue) ? 'block' : 'none';
+      });
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const userPanel = document.getElementById('userPanel');
+    const closePanel = document.getElementById('closePanel');
+
+    menuToggle.addEventListener('click', function () {
+      userPanel.classList.toggle('active');
+    });
+
+    closePanel.addEventListener('click', function () {
+      userPanel.classList.remove('active');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const filmGrid = document.getElementById('filmGrid');
+      for (let i = 1; i <= 20; i++) {
+        const card = document.createElement('div');
+        card.className = 'film-card';
+        card.innerHTML = `
+          <a href="film.html">
+            <video muted loop preload="auto">
+              <source src="https://www.w3schools.com/html/mov_bbb.mp4#t=0,10" type="video/mp4">
+            </video>
+            <p>Tytuł filmu ${i}</p>
+          </a>
+        `;
+        filmGrid.appendChild(card);
+      }
+    });
+  </script>
+
+</body>
+</html>
